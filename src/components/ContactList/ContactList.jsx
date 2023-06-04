@@ -1,29 +1,36 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { ContactItem } from '../ContactItem/ContactItem';
-import PropTypes from 'prop-types'; 
 import css from './ContactList.module.css';
 
-export const ContactList = ({ contacts, filter, onDeleteContact }) => {
-    const filteredContacts = contacts.filter((contact) =>
-    contact.name.toLowerCase().includes(filter.toLowerCase())
-    );
+export class ContactList extends Component {
+  handleDeleteClick = (contactId) => {
+    this.props.onDeleteContact(contactId);
+  };
 
-    const handleDeleteClick = (contactId) => {
-    onDeleteContact(contactId);
-    };
+  render() {
+    const { contacts, filter } = this.props;
+
+    const filteredContacts = contacts.filter((contact) =>
+      contact.name.toLowerCase().includes(filter.toLowerCase())
+    );
 
     return (
-    <ul className={css.item_contact}>
+      <ul className={css.item_contact}>
         {filteredContacts.map((contact) => (
-        <li className={css.item} key={contact.id}>
-            <p className={css.text}>{contact.name}: {contact.number}</p>
-            <button className={css.button} onClick={() => handleDeleteClick(contact.id)}>Delete</button>
-        </li>
+          <ContactItem
+            contact={contact}
+            onDeleteClick={this.handleDeleteClick}
+            key={contact.id}
+          />
         ))}
-    </ul>
+      </ul>
     );
-};
+  }
+}
+
 ContactList.propTypes = {
-    contacts: PropTypes.array.isRequired,
-    filter: PropTypes.string.isRequired,
+  contacts: PropTypes.array.isRequired,
+  filter: PropTypes.string.isRequired,
+  onDeleteContact: PropTypes.func.isRequired,
 };

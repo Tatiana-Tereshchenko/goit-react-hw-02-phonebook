@@ -3,13 +3,18 @@ import PropTypes from 'prop-types';
 import css from './Filter.module.css';
 
 
-export const Filter = ({ value, onChange }) => (
-  <label className={css.label}>
-    Filter contacts by name:
-    <input className={css.text} type="text" value={value} onChange={onChange} />
-  </label>
-);
+export class Filter extends Component {
+  render() {
+    const { value, onChange } = this.props;
 
+    return (
+      <label className={css.label}>
+        Filter contacts by name:
+        <input className={css.text} type="text" value={value} onChange={onChange} />
+      </label>
+    );
+  }
+}
 
 Filter.propTypes = {
   value: PropTypes.string.isRequired,
