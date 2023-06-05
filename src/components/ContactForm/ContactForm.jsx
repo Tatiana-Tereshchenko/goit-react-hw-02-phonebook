@@ -24,9 +24,11 @@ export class ContactForm extends Component {
     this.setState({ name: event.target.value });
     };
 
-    handleNumberChange = (event) => {
-    this.setState({ number: event.target.value });
-    };
+  handleNumberChange = (event) => {
+    const inputNumber = event.target.value;
+    const sanitizedNumber = inputNumber.replace(/\D/g, ''); 
+    this.setState({ number: sanitizedNumber });
+};
 
     render() {
     const { name, number } = this.state;

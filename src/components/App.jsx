@@ -2,7 +2,7 @@ import { Component } from 'react';
 import { ContactForm } from './ContactForm/ContactForm';
 import { ContactList } from './ContactList/ContactList';
 import { Filter } from './Filter/Filter';
-
+import css from './App.module.css';
 
 export class App extends Component {
   state = {
@@ -43,21 +43,12 @@ export class App extends Component {
   
   render() {
     const { contacts, filter } = this.state;
-    const containerStyle = {
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems: 'center',
-  };
-     const titleStyle = {
-    fontSize: '24px',
-  };
     return (
-      <div style={containerStyle}>
-        <h1 style={titleStyle}>Phonebook</h1>
+      <div className={css.container}>
+        <h1 className={css.title}>Phonebook</h1>
         <ContactForm onAddContact={this.handleAddContact} />
 
-        <h2 style={titleStyle}>Contacts</h2>
+        <h2 className={css.title}>Contacts</h2>
         <Filter value={filter} onChange={this.handleFilterChange} />
         <ContactList contacts={contacts} filter={filter} onDeleteContact={this.handleDeleteContact} />
       </div>
